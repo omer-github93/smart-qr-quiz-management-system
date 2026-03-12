@@ -1,0 +1,326 @@
+.login-page-root {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ─── LEFT PANEL ─── */
+.lp-left {
+    position: relative;
+    width: 42%;
+    min-width: 320px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    overflow: visible;
+    flex-shrink: 0;
+}
+
+.lp-form-box {
+    width: 100%;
+    max-width: 480px; /* Increased from 360px to make fields wider */
+    padding: 0 48px 0 40px;
+}
+
+.lp-title {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #1a2b4a;
+    margin: 0 0 32px 0;
+    letter-spacing: 1.5px;
+    text-align: center;
+}
+
+.lp-form-error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff2f2;
+    border: 1.5px solid #f87171;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: #c0392b;
+    font-size: 0.875rem;
+    font-weight: 600;
+    animation: lp-shake 0.4s ease;
+}
+
+@keyframes lp-shake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-6px); }
+    40%       { transform: translateX(6px); }
+    60%       { transform: translateX(-4px); }
+    80%       { transform: translateX(4px); }
+}
+
+.lp-form { display: flex; flex-direction: column; gap: 14px; }
+
+.lp-field-group { display: flex; flex-direction: column; gap: 4px; }
+
+.lp-field {
+    display: flex;
+    align-items: center;
+    background: #ffffff; /* Changed from teal to white */
+    border-radius: 30px;
+    padding: 0 20px;
+    height: 54px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    transition: box-shadow 0.25s, transform 0.15s, border 0.2s, background 0.2s;
+    border: 2px solid #5a5a5a; /* Changed to dark-grey border */
+}
+
+.lp-field:focus-within {
+    box-shadow: 0 6px 22px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+    border-color: #1a2b4a; /* Slightly darker on focus */
+}
+
+.lp-field.lp-field--error {
+    background: #fff2f2;
+    border: 2px solid #e74c3c;
+    box-shadow: 0 4px 14px rgba(231,76,60,0.15);
+    animation: lp-shake 0.4s ease;
+}
+
+.lp-field.lp-field--error:focus-within {
+    box-shadow: 0 6px 22px rgba(231,76,60,0.2);
+}
+
+.lp-icon {
+    color: #5a5a5a; /* Icon color to match border */
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.lp-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #1a2b4a; /* Text color changed to dark */
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.lp-input::placeholder { color: #888888; }
+
+.lp-field-error {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.lp-eye-btn {
+    background: transparent;
+    border: none;
+    color: #5a5a5a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-right: 12px;
+    transition: color 0.2s;
+    height: 100%;
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.lp-eye-btn:hover { color: #1a2b4a; }
+
+.lp-eye-btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* ─── REMEMBER ME ─── */
+.lp-remember-box {
+    display: flex;
+    align-items: center;
+    margin: 4px 0 8px 4px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.lp-remember-check {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #5a5a5a; /* Changed to dark-grey border */
+    border-radius: 4px;
+    background: #ffffff; /* White background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    transition: all 0.2s;
+}
+
+.lp-remember-box:hover .lp-remember-check { border-color: #1a2b4a; }
+
+.lp-remember-check--active {
+    background: #5a5a5a; /* Checked background */
+    border-color: #5a5a5a;
+}
+
+.lp-remember-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #5a5a5a; /* Text color changed to dark-grey */
+}
+
+/* ─── LOGIN BUTTON ─── */
+.lp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #1a2b4a;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    border: none;
+    border-radius: 30px;
+    height: 54px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+    box-shadow: 0 4px 18px rgba(26,43,74,0.38);
+    font-family: inherit;
+    width: 100%;
+}
+
+.lp-btn:hover:not(:disabled) {
+    background: #253870;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 26px rgba(26,43,74,0.48);
+}
+
+.lp-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+.lp-spin { animation: lp-spin 1s linear infinite; }
+
+@keyframes lp-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* ─── WAVY EDGE ─── */
+.lp-wave {
+    position: absolute;
+    right: -44px;
+    top: 0;
+    width: 90px;
+    height: 100%;
+    background: #ffffff;
+    clip-path: ellipse(58% 100% at 0% 50%);
+    z-index: 3;
+}
+
+/* ─── RIGHT PANEL ─── */
+.lp-right {
+    flex: 1;
+    background-color: #070d2a;
+    background-image: url('/src/assets/quiz_login_bg.png'); /* Updated path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+
+.lp-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(7,13,42,0.35) 0%, rgba(7,13,42,0.1) 100%);
+    z-index: 0;
+}
+
+/* ─── NEON ICONS ─── */
+.lp-neon-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.lp-neon {
+    position: absolute;
+    animation: lp-float 4s ease-in-out infinite;
+    line-height: 1;
+}
+
+.lp-neon-q {
+    font-size: 7rem;
+    font-weight: 900;
+    color: #00d4ff;
+    right: 24%;
+    top: 26%;
+    text-shadow: 0 0 10px #00d4ff, 0 0 30px #00d4ff, 0 0 60px #00bfff;
+    animation-duration: 5s;
+}
+
+.lp-neon-bulb1  { font-size: 2.2rem; top: 10%; right: 8%;  animation-delay: 0.4s; animation-duration: 3.8s; }
+.lp-neon-bulb2  { font-size: 1.8rem; top: 5%;  right: 42%; animation-delay: 1.2s; animation-duration: 4.3s; }
+.lp-neon-bulb3  { font-size: 2rem;   top: 68%; right: 20%; animation-delay: 2.1s; animation-duration: 5.1s; }
+.lp-neon-puzzle1{ font-size: 2.2rem; top: 55%; right: 5%;  animation-delay: 0.7s; animation-duration: 4.5s; }
+.lp-neon-puzzle2{ font-size: 1.8rem; top: 12%; right: 65%; animation-delay: 1.8s; animation-duration: 3.6s; }
+.lp-neon-star   { font-size: 2rem;   top: 78%; right: 38%; animation-delay: 0.9s; animation-duration: 4.0s; }
+.lp-neon-trophy { font-size: 2.2rem; top: 50%; right: 72%; animation-delay: 1.5s; animation-duration: 3.9s; }
+.lp-neon-brain  { font-size: 2rem;   top: 82%; right: 55%; animation-delay: 2.5s; animation-duration: 5.3s; }
+.lp-neon-q2     { font-size: 1.8rem; top: 20%; right: 55%; animation-delay: 0.6s; animation-duration: 4.7s; }
+.lp-neon-pacman { font-size: 2rem;   top: 8%;  right: 25%; animation-delay: 1.0s; animation-duration: 4.2s; }
+
+@keyframes lp-float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.85; }
+    50%       { transform: translateY(-16px) rotate(5deg); opacity: 1; }
+}
+
+.lp-rocket {
+    position: absolute;
+    font-size: 4.5rem;
+    bottom: 20%;
+    left: 10%;
+    z-index: 2;
+    animation: lp-rocket-fly 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 14px rgba(255,255,255,0.45));
+}
+
+@keyframes lp-rocket-fly {
+    0%   { transform: rotate(-30deg) translateY(0); }
+    50%  { transform: rotate(-30deg) translateY(-22px); }
+    100% { transform: rotate(-30deg) translateY(0); }
+}
+
+.lp-smoke {
+    position: absolute;
+    bottom: 16%;
+    left: 10%;
+    font-size: 2.5rem;
+    z-index: 2;
+    opacity: 0.5;
+    animation: lp-smoke-drift 3s ease-in-out infinite alternate;
+    filter: blur(2px);
+}
+
+@keyframes lp-smoke-drift {
+    0%   { transform: translateY(0) scale(1); opacity: 0.5; }
+    100% { transform: translateY(14px) scale(1.2); opacity: 0.25; }
+}
+
+@media (max-width: 768px) {
+    .lp-left  { width: 100%; min-width: 0; }
+    .lp-right { display: none; }
+    .lp-wave  { display: none; }
+}
