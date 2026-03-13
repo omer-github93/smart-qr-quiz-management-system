@@ -19,5 +19,9 @@ COPY ./backend /app
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+# Create storage link and set permissions
+RUN php artisan storage:link
+RUN chmod -R 775 storage bootstrap/cache
+
 # Start Laravel
 CMD php artisan serve --host=0.0.0.0 --port=$PORT
