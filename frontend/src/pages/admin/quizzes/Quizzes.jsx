@@ -41,6 +41,9 @@ const Quizzes = () => {
     // Selection states
     const [selectedQuiz, setSelectedQuiz] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isRegenerating, setIsRegenerating] = useState(false);
+
+    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
     useEffect(() => {
         fetchQuizzes();
@@ -92,10 +95,25 @@ const Quizzes = () => {
         }
     };
 
+    const handleRegenerateQr = async () => {
+        if (!selectedQuiz) return;
+        setIsRegenerating(true);
+        try {
+            const res = await generateQuizQrApi(selectedQuiz.id);
+            setSelectedQuiz({ ...selectedQuiz, qr_code_path: res.data.qr_code_path });
+            // Also update in the list
+            setQuizzes(quizzes.map(q => q.id === selectedQuiz.id ? { ...q, qr_code_path: res.data.qr_code_path } : q));
+        } catch (error) {
+            console.error('Failed to regenerate QR code:', error);
+        } finally {
+            setIsRegenerating(false);
+        }
+    };
+
     const handleDownloadQr = () => {
         if (!selectedQuiz?.qr_code_path) return;
         const link = document.createElement('a');
-        link.href = `http://localhost:8000${selectedQuiz.qr_code_path}`;
+        link.href = `${API_BASE_URL}${selectedQuiz.qr_code_path}`;
         link.download = `quiz-qr-${selectedQuiz.slug}.svg`;
         document.body.appendChild(link);
         link.click();
@@ -267,11 +285,24 @@ const Quizzes = () => {
                 <div className="text-center space-y-6">
                     <div className="bg-slate-50 p-6 rounded-3xl border border-dashed border-slate-200 flex items-center justify-center">
                         {selectedQuiz?.qr_code_path ? (
-                            <img
-                                src={`http://localhost:8000${selectedQuiz.qr_code_path}`}
-                                alt="Quiz QR Code"
-                                className="w-56 h-56 shadow-sm rounded-xl bg-white p-2"
-                            />
+                            <div className="relative group">
+                                <img
+                                    src={`${API_BASE_URL}${selectedQuiz.qr_code_path}`}
+                                    alt="Quiz QR Code"
+                                    className="w-56 h-56 shadow-sm rounded-xl bg-white p-2"
+                                />
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-white/40 backdrop-blur-[2px] rounded-xl">
+                                    <Button
+                                        variant="secondary"
+                                        size="sm"
+                                        onClick={handleRegenerateQr}
+                                        disabled={isRegenerating}
+                                        className="rounded-xl shadow-lg border-white/50"
+                                    >
+                                        {isRegenerating ? <Loader2 size={16} className="animate-spin" /> : 'Regenerate'}
+                                    </Button>
+                                </div>
+                            </div>
                         ) : (
                             <div className="flex flex-col items-center gap-3 py-12 text-slate-400">
                                 <QrIcon size={48} />
@@ -294,7 +325,7 @@ const Quizzes = () => {
                         <Button
                             variant="secondary"
                             className="rounded-2xl h-12"
-                            onClick={() => window.open(`http://localhost:5173/quiz/${selectedQuiz?.slug}`, '_blank')}
+                            onClick={() => window.open(`${window.location.origin}/quiz/${selectedQuiz?.slug}`, '_blank')}
                         >
                             <ExternalLink size={18} />
                         </Button>
