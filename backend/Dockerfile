@@ -14,7 +14,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Copy project files
-COPY . /app
+COPY ./backend /app
 
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
